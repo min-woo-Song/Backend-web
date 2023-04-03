@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="layout/basic">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 목록</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</head>
+    <body>
+    <!--container-->
+    <th:block layout:fragment="content">
+    <div class="container" style="max-width: 1000px">
+        <div class="py-5 text-center">
+            <h2>게시판 목록</h2>
+        </div>
+
+        <hr class="my-4">
+        <!-- 검색 관련 -->
+        <div class="search_box">
+            <form th:object="${boardSearch}" method="get">
+                <div class="sch_group fl, float-end">
+                    <select id="option" name="option">
+                        <option value="all">제목 내용</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                        <option value="writer">작성자</option>
+                    </select>
+                    <input type="text" id="keyword" name="keyword" th:value="${boardSearch.keyword}" placeholder="키워드 입력">
+                    <button type="submit" class="bt_search btn btn-dark float-end" style="margin-left: 10px;">
+                        <span>검색</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- /검색 관련 -->
+
+        </br>
+        <hr class="my-4">
+
+        <!-- 게시글 테이블 -->
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>글번호</th>
+                    <th style="padding-right: 200px;" >제목</th>
+                    <th>작성자</th>
+                    <th style="text-align:center">조회수</th>
+                    <th style="text-align:center">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${not #lists.isEmpty(board)}" th:each="board : ${board}">
+                    <td th:text="${board.id}">글번호</td>
+                    <td><a href="view.html" th:href="@{|/board/view/${board.id}|}" th:text="${board.title}">제목</a></td>
+
+                    <td th:text="${board.username}">작성자</td>
+                    <td style="text-align:center" th:text="${board.readCnt}">조회수</td>
+                    <td style="text-align:center" th:text="${board.wDate}">작성일</td>
+                </tr>
+                <tr th:unless="${not #lists.isEmpty(board)}">
+                    <td style="text-align:center" colspan="4">검색된 결과가 없습니다.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /게시글 테이블 -->
+    </div>
+
+    <div class="container" style="max-width: 800px">
+        <button type="button" class="btn btn-dark float-left">전체글</button>
+        <button type="button" class="btn btn-dark float-end"
+                onclick="location.href='writeForm.html'"
+                th:onclick="|location.href='@{/board/write}'|">글쓰기
+        </button>
+    </div>
+
+
+    <!-- Nav -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item" th:classappend="${11 > boardSearch.page} ? 'disabled'">
+                <a class="page-link" th:href="@{/board/list(page=${paging.startPage-1}, option=${boardSearch.option}, keyword=${boardSearch.keyword})}" aria-label="이전">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">이전</span>
+                </a>
+            </li>
+
+            <li th:each="num : ${#numbers.sequence(paging.startPage, paging.endPage)}" class="page-item" th:classappend="${num == boardSearch.page} ? 'disabled'">
+                <a class="page-link" th:href="@{/board/list(page=${num}, option=${boardSearch.option}, keyword=${boardSearch.keyword})}" th:text="${num}">1</a></li>
+
+            <li class="page-item" th:classappend="${1 == paging.totalPageCount} ? 'disabled'">
+                <a class="page-link" th:href="@{/board/list(page=${paging.endPage+1}, option=${boardSearch.option}, keyword=${boardSearch.keyword})}" aria-label="다음">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">다음</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+    <!--/nav-->
+
+    </th:block>
+</body>
+</html>
