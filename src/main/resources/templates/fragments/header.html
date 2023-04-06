@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
   <meta charset="UTF-8">
 </head>
@@ -13,14 +13,22 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="list" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="list" class="nav-link px-2 text-white">게시판</a></li>
+          <li><a th:href="@{/}" class="nav-link px-2 text-secondary">Home</a></li>
+          <li><a th:href="@{/board/list}" class="nav-link px-2 text-white">게시판</a></li>
         </ul>
 
-        <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">로그인</button>
-          <button type="button" class="btn btn-warning">회원가입</button>
+        <div class="text-end" sec:authorize="!isAuthenticated()">
+          <button type="button" class="btn btn-outline-light me-2" th:onclick="|location.href='@{/login}'|">로그인</button>
+          <button type="button" class="btn btn-warning" th:onclick="|location.href='@{/signup}'|">회원가입</button>
         </div>
+
+        <div class="text-end"  sec:authorize="isAuthenticated()">
+          <form th:action="@{/logout}" method="post">
+          <span class="text-white" sec:authentication="name" style="margin-right:10px"> 사용자 </span>
+          <button class="btn btn-warning" type="submit">로그아웃</button>
+          </form>
+        </div>
+
       </div>
     </div>
   </header>

@@ -4,11 +4,14 @@ import com.smw.Backend.domain.*;
 import com.smw.Backend.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,7 +53,9 @@ public class BoardController {
 
     // 게시글 쓰기 post
     @PostMapping("/write")
-    public String writeBoard(@ModelAttribute BoardRequest boardRequest, RedirectAttributes redirectAttributes) {
+    public String writeBoard(@ModelAttribute BoardRequest boardRequest, RedirectAttributes redirectAttributes, Principal principal) {
+        boardRequest.setUsername(principal.getName());
+
         Long boardId = boardService.save(boardRequest);
         redirectAttributes.addAttribute("boardId", boardId);
         return "redirect:/board/view/{boardId}";
@@ -66,8 +71,11 @@ public class BoardController {
 
     // 게시글 수정 post
     @PostMapping("/edit/{id}")
-    public String editBoard(@PathVariable Long id, @ModelAttribute BoardRequest boardRequest) {
-        boardService.update(id, boardRequest);
+    public String editBoard(@PathVariable Long id, @ModelAttribute BoardRequest boardRequest, Principal principal, Model model) {
+        BoardResponse board = boardService.findById(id);
+        if (principal.getName().equals(board.getUsername())){
+            boardService.update(id, boardRequest);
+        }
         return "redirect:/board/view/{id}";
     }
 
