@@ -72,10 +72,7 @@ public class BoardController {
     // 게시글 수정 post
     @PostMapping("/edit/{id}")
     public String editBoard(@PathVariable Long id, @ModelAttribute BoardRequest boardRequest, Principal principal, Model model) {
-        BoardResponse board = boardService.findById(id);
-        if (principal.getName().equals(board.getUsername())){
-            boardService.update(id, boardRequest);
-        }
+        boardService.update(id, boardRequest);
         return "redirect:/board/view/{id}";
     }
 

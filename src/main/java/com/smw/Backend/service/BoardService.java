@@ -4,6 +4,8 @@ import com.smw.Backend.Mapper.BoardMapper;
 import com.smw.Backend.domain.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,15 +48,29 @@ public class BoardService {
 
     @Transactional
     public void update(Long id, BoardRequest boardRequest) {
-        boardMapper.update(id, boardRequest);
+        Authentication authentication = authCheck();
+        BoardResponse boardId = findById(id);
+        if (authentication.getPrincipal().equals(boardId.getUsername()))
+            boardMapper.update(id, boardRequest);
+        else
+            throw new RuntimeException("계정이 일치하지 않습니다.");
     }
 
     @Transactional
     public void delete(Long id) {
-        boardMapper.delete(id);
+        Authentication authentication = authCheck();
+        BoardResponse boardId = findById(id);
+        if (authentication.getPrincipal().equals(boardId.getUsername()))
+            boardMapper.delete(id);
+        else
+            throw new RuntimeException("계정이 일치하지 않습니다.");
     }
 
     public void readCnt(Long id) {
         boardMapper.readCnt(id);
+    }
+
+    public Authentication authCheck() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 }
