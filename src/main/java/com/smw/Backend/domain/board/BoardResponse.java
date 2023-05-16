@@ -1,4 +1,4 @@
-package com.smw.Backend.domain;
+package com.smw.Backend.domain.board;
 
 import lombok.Getter;
 
@@ -10,9 +10,8 @@ public class BoardResponse {
     private Long id;
     private String title;
     private String content;
-    private String username;
+    private String nickname;
     private int readCnt;
-    private LocalDateTime wDate;
-    private LocalDateTime uDate;
+    private LocalDateTime regDate;
     private String isView;
 }

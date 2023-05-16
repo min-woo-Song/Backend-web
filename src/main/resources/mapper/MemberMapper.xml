@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smw.Backend.Mapper.MemberMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into Member (email, password, nickname)
+        values (#{email}, #{password}, #{nickname})
+    </insert>
+
+    <select id="findByEmail" resultType="Member">
+        select *
+        from Member
+        where email = #{email}
+    </select>
+
+    <select id="findByNickname" resultType="Member">
+        select *
+        from Member
+        where nickname = #{nickname}
+    </select>
+</mapper>

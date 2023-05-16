@@ -56,9 +56,9 @@ layout:decorate="layout/basic">
                     <td th:text="${board.id}">글번호</td>
                     <td><a href="view.html" th:href="@{|/board/view/${board.id}|}" th:text="${board.title}">제목</a></td>
 
-                    <td th:text="${board.username}">작성자</td>
+                    <td th:text="${board.nickname}">작성자</td>
                     <td style="text-align:center" th:text="${board.readCnt}">조회수</td>
-                    <td style="text-align:center" th:text="${board.wDate}">작성일</td>
+                    <td style="text-align:center" th:text="${board.regDate}">작성일</td>
                 </tr>
                 <tr th:unless="${not #lists.isEmpty(board)}">
                     <td style="text-align:center" colspan="4">검색된 결과가 없습니다.</td>
@@ -70,7 +70,8 @@ layout:decorate="layout/basic">
     </div>
 
     <div class="container" style="max-width: 800px">
-        <button type="button" class="btn btn-dark float-left">전체글</button>
+        <button type="button"  class="btn btn-dark float-left"
+                th:onclick="|location.href='@{/board/list}'|">전체글</button>
         <button type="button" class="btn btn-dark float-end"
                 onclick="location.href='writeForm.html'"
                 th:onclick="|location.href='@{/board/write}'|">글쓰기

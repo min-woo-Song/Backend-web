@@ -1,4 +1,4 @@
-package com.smw.Backend.domain;
+package com.smw.Backend.domain.board;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ public class BoardRequest {
     private Long id; // 기본키
 
     @NotBlank
-    private String username; // 작성자
+    private String nickname; // 작성자
 
     @NotBlank
     @Size(min=1, max=30, message = "제목은 1자 이상 30자 이하입니다")
@@ -25,8 +25,8 @@ public class BoardRequest {
     @NotEmpty
     private String content; // 내용
 
-    public BoardRequest(String username, String title, String content) {
-        this.username = username;
+    public BoardRequest(String nickname, String title, String content) {
+        this.nickname = nickname;
         this.title = title;
         this.content = content;
     }

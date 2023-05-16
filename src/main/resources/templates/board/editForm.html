@@ -18,7 +18,7 @@
     <form action="view.html" th:action method="post">
         <div>
             <label>작성자</label>
-            <input type="text" id="username" name="username" class="form-control" value="작성자" th:value="${board.username}" readonly>
+            <input type="text" id="username" name="username" class="form-control" value="작성자" th:value="${board.nickname}" readonly>
         </div>
         <div>
             <label>제목</label>
@@ -27,7 +27,7 @@
         <br>
         <div>
             <label>내용</label>
-            <textarea id="content" name="content" class="form-control" th:text="${board.title}"></textarea>
+            <textarea id="content" name="content" class="form-control" th:text="${board.content}"></textarea>
         </div>
 
         <hr class="my-4">

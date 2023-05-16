@@ -3,8 +3,8 @@
 <mapper namespace="com.smw.Backend.Mapper.BoardMapper">
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
-        insert into board (username, title, content)
-        values (#{username}, #{title}, #{content})
+        insert into board (nickname, title, content)
+        values (#{nickname}, #{title}, #{content})
     </insert>
 
     <select id="findById" resultType="BoardResponse">
@@ -29,7 +29,7 @@
                 and content like concat('%', #{keyword}, '%')
             </if>
             <if test="option != null and option == 'writer'">
-                and username like concat('%', #{keyword}, '%')
+                and nickname like concat('%', #{keyword}, '%')
             </if>
         </where>
         order by id desc
@@ -52,7 +52,7 @@
                 and content like concat('%', #{keyword}, '%')
             </if>
             <if test="option != null and option == 'writer'">
-                and username like concat('%', #{keyword}, '%')
+                and nickname like concat('%', #{keyword}, '%')
             </if>
         </where>
     </select>

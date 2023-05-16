@@ -1,7 +1,12 @@
 package com.smw.Backend.service;
 
 import com.smw.Backend.Mapper.BoardMapper;
-import com.smw.Backend.domain.*;
+import com.smw.Backend.domain.board.BoardRequest;
+import com.smw.Backend.domain.board.BoardResponse;
+import com.smw.Backend.domain.board.BoardSearchCond;
+import com.smw.Backend.domain.member.Member;
+import com.smw.Backend.domain.paging.Paging;
+import com.smw.Backend.domain.paging.PagingResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -48,9 +53,9 @@ public class BoardService {
 
     @Transactional
     public void update(Long id, BoardRequest boardRequest) {
-        Authentication authentication = authCheck();
+        Member member = authCheck();
         BoardResponse boardId = findById(id);
-        if (authentication.getPrincipal().equals(boardId.getUsername()))
+        if (member.getNickname().equals(boardId.getNickname()))
             boardMapper.update(id, boardRequest);
         else
             throw new RuntimeException("계정이 일치하지 않습니다.");
@@ -58,9 +63,9 @@ public class BoardService {
 
     @Transactional
     public void delete(Long id) {
-        Authentication authentication = authCheck();
+        Member member = authCheck();
         BoardResponse boardId = findById(id);
-        if (authentication.getPrincipal().equals(boardId.getUsername()))
+        if (member.getNickname().equals(boardId.getNickname()))
             boardMapper.delete(id);
         else
             throw new RuntimeException("계정이 일치하지 않습니다.");
@@ -70,7 +75,8 @@ public class BoardService {
         boardMapper.readCnt(id);
     }
 
-    public Authentication authCheck() {
-        return SecurityContextHolder.getContext().getAuthentication();
+    public Member authCheck() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (Member) authentication.getPrincipal();
     }
 }

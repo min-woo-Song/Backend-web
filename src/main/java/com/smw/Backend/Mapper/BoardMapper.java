@@ -1,8 +1,8 @@
 package com.smw.Backend.Mapper;
 
-import com.smw.Backend.domain.BoardRequest;
-import com.smw.Backend.domain.BoardResponse;
-import com.smw.Backend.domain.BoardSearchCond;
+import com.smw.Backend.domain.board.BoardRequest;
+import com.smw.Backend.domain.board.BoardResponse;
+import com.smw.Backend.domain.board.BoardSearchCond;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

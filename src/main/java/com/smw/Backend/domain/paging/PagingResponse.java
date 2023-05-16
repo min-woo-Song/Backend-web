@@ -1,4 +1,4 @@
-package com.smw.Backend.domain;
+package com.smw.Backend.domain.paging;
 
 import lombok.Getter;
 

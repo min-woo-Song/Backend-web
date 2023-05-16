@@ -1,7 +1,7 @@
 package com.smw.Backend.controller;
 
-import com.smw.Backend.domain.User;
-import com.smw.Backend.service.UserService;
+import com.smw.Backend.domain.member.Member;
+import com.smw.Backend.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final UserService userService;
+    private final MemberService memberService;
 
     @GetMapping("/login") // 로그인 폼
     public String loginForm() {
@@ -29,11 +29,11 @@ public class LoginController {
     }
 
     @PostMapping("/signup") // 회원 가입
-    public String signUp(@Validated @ModelAttribute User user, BindingResult bindingResult) {
+    public String signUp(@Validated @ModelAttribute Member member, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "auth/signup";
 
-        userService.save(user);
+        memberService.save(member);
         return "redirect:/";
     }
 }

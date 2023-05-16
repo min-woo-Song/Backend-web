@@ -30,13 +30,12 @@ public class WebSecurityConfig {
                 .and()
             .formLogin()
                 .loginPage("/login").permitAll()
-                .usernameParameter("username")
+                .usernameParameter("email")
                 .passwordParameter("password")
                 .and()
             .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .permitAll();
+                .logoutSuccessUrl("/");
 
         return http.build();
     }

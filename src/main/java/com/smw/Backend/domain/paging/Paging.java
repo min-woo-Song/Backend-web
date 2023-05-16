@@ -1,5 +1,6 @@
-package com.smw.Backend.domain;
+package com.smw.Backend.domain.paging;
 
+import com.smw.Backend.domain.board.BoardSearchCond;
 import lombok.Getter;
 
 @Getter

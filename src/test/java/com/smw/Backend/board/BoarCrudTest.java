@@ -1,9 +1,9 @@
 package com.smw.Backend.board;
 
-import com.smw.Backend.domain.BoardRequest;
-import com.smw.Backend.domain.BoardResponse;
-import com.smw.Backend.domain.BoardSearchCond;
-import com.smw.Backend.domain.Paging;
+import com.smw.Backend.domain.board.BoardRequest;
+import com.smw.Backend.domain.board.BoardResponse;
+import com.smw.Backend.domain.board.BoardSearchCond;
+import com.smw.Backend.domain.paging.Paging;
 import com.smw.Backend.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
-package com.smw.Backend.domain;
+package com.smw.Backend.domain.board;
 
+import com.smw.Backend.domain.paging.Paging;
 import lombok.Getter;
 import lombok.Setter;
 

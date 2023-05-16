@@ -1,7 +1,7 @@
 package com.smw.Backend.user;
 
-import com.smw.Backend.domain.User;
-import com.smw.Backend.service.UserService;
+import com.smw.Backend.domain.member.Member;
+import com.smw.Backend.service.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
-public class UserTest {
+public class MemberTest {
 
     @Autowired
-    UserService userService;
+    MemberService memberService;
 
     @Test
     void save() {
@@ -22,7 +22,7 @@ public class UserTest {
 
     @Test
     void findByUsername() {
-        User user = userService.findByUsername("test");
-        Assertions.assertThat(user.getUsername()).isEqualTo("test");
+        Member member = memberService.findByNickname("test");
+        Assertions.assertThat(member.getUsername()).isEqualTo("test");
     }
 }
