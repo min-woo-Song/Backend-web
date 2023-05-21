@@ -1,6 +1,7 @@
 package com.smw.Backend.service;
 
 import com.smw.Backend.Mapper.BoardMapper;
+import com.smw.Backend.config.auth.PrincipalDetails;
 import com.smw.Backend.domain.board.BoardRequest;
 import com.smw.Backend.domain.board.BoardResponse;
 import com.smw.Backend.domain.board.BoardSearchCond;
@@ -53,9 +54,8 @@ public class BoardService {
 
     @Transactional
     public void update(Long id, BoardRequest boardRequest) {
-        Member member = authCheck();
         BoardResponse boardId = findById(id);
-        if (member.getNickname().equals(boardId.getNickname()))
+        if (authCheck().getUsername().equals(boardId.getEmail()))
             boardMapper.update(id, boardRequest);
         else
             throw new RuntimeException("계정이 일치하지 않습니다.");
@@ -63,9 +63,8 @@ public class BoardService {
 
     @Transactional
     public void delete(Long id) {
-        Member member = authCheck();
         BoardResponse boardId = findById(id);
-        if (member.getNickname().equals(boardId.getNickname()))
+        if (authCheck().getUsername().equals(boardId.getEmail()))
             boardMapper.delete(id);
         else
             throw new RuntimeException("계정이 일치하지 않습니다.");
@@ -75,8 +74,8 @@ public class BoardService {
         boardMapper.readCnt(id);
     }
 
-    public Member authCheck() {
+    public PrincipalDetails authCheck() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (Member) authentication.getPrincipal();
+        return (PrincipalDetails) authentication.getPrincipal();
     }
 }

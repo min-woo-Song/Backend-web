@@ -29,8 +29,4 @@ public class MemberService {
     public Member findByNickname(String nickname) {
         return memberMapper.findByNickname(nickname);
     }
-
-    public PasswordEncoder passwordEncoder() {
-        return this.passwordEncoder;
-    }
 }

@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class BoardResponse {
 
     private Long id;
+    private String email;
     private String title;
     private String content;
     private String nickname;

@@ -23,6 +23,6 @@ public class MemberTest {
     @Test
     void findByUsername() {
         Member member = memberService.findByNickname("test");
-        Assertions.assertThat(member.getUsername()).isEqualTo("test");
+        Assertions.assertThat(member.getNickname()).isEqualTo("test");
     }
 }

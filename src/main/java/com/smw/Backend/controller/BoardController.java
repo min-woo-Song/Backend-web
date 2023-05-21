@@ -1,5 +1,6 @@
 package com.smw.Backend.controller;
 
+import com.smw.Backend.config.auth.PrincipalDetails;
 import com.smw.Backend.domain.board.BoardRequest;
 import com.smw.Backend.domain.board.BoardResponse;
 import com.smw.Backend.domain.board.BoardSearchCond;
@@ -56,8 +57,11 @@ public class BoardController {
     // 게시글 쓰기 post
     @PostMapping("/write")
     public String writeBoard(@ModelAttribute BoardRequest boardRequest, RedirectAttributes redirectAttributes, Authentication authentication) {
-        Member member = (Member) authentication.getPrincipal();
-        boardRequest.setNickname(member.getNickname());
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        String nickname = principal.getMember().getNickname();
+        String email = principal.getUsername();
+        boardRequest.setNickname(nickname);
+        boardRequest.setEmail(email);
 
         Long boardId = boardService.save(boardRequest);
         redirectAttributes.addAttribute("boardId", boardId);

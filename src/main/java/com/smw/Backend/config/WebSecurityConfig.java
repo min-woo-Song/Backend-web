@@ -1,5 +1,7 @@
 package com.smw.Backend.config;
 
+import com.smw.Backend.config.auth.CustomOAuth2UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +16,11 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
+
+    @Autowired
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -23,6 +29,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .authorizeHttpRequests()
                 .antMatchers("/", "/signup", "/board/list", "/board/view/**", "/css/**", "/js/**").permitAll()
@@ -33,9 +40,10 @@ public class WebSecurityConfig {
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and()
-            .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/");
+            .oauth2Login()
+                .loginPage("/login")
+                .userInfoEndpoint()
+                .userService(customOAuth2UserService);
 
         return http.build();
     }
