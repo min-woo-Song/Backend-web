@@ -3,8 +3,8 @@
 <mapper namespace="com.smw.Backend.Mapper.MemberMapper">
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
-        insert into Member (email, password, nickname)
-        values (#{email}, #{password}, #{nickname})
+        insert into Member (email, password, nickname, provider, providerId)
+        values (#{email}, #{password}, #{nickname}, #{provider}, #{providerId})
     </insert>
 
     <select id="findByEmail" resultType="Member">

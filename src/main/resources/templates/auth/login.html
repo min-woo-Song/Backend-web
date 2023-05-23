@@ -35,7 +35,9 @@
             <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
         </form>
             <br>
-            <button type="button" class="w-100 btn btn-lg btn-primary" th:onclick="|location.href='@{/oauth2/authorization/google}'|">구글 로그인</button>
+            <button type="button" class="w-100 btn btn-lg btn-primary" th:onclick="|location.href='@{/oauth2/authorization/google}'|">구글</button>
+            <button type="button" class="w-100 btn btn-lg btn-success" th:onclick="|location.href='@{/oauth2/authorization/naver}'|">네이버</button>
+            <button type="button" class="w-100 btn btn-lg btn-warning" th:onclick="|location.href='@{/oauth2/authorization/kakao}'|">카카오</button>
     </main>
     </th:block>
 </body>

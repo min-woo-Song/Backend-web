@@ -1,5 +1,6 @@
 package com.smw.Backend.config.auth;
 
+import com.smw.Backend.config.auth.userInfo.OAuth2UserInfo;
 import com.smw.Backend.domain.member.Member;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,15 +14,17 @@ import java.util.Map;
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private Member member;
-    private Map<String, Object> attributes;
+    private OAuth2UserInfo oAuth2UserInfo;
 
+    //Form 로그인
     public PrincipalDetails(Member member) {
         this.member = member;
     }
 
-    public PrincipalDetails(Member member, Map<String, Object> attributes) {
+    //OAuth2 로그인
+    public PrincipalDetails(Member member, OAuth2UserInfo oAuth2UserInfo) {
         this.member = member;
-        this.attributes = attributes;
+        this.oAuth2UserInfo = oAuth2UserInfo;
     }
 
     @Override
@@ -61,11 +64,11 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getName() {
-        return attributes.get("sub").toString();
+        return oAuth2UserInfo.getName();
     }
 
     @Override
     public Map<String, Object> getAttributes() {
-        return attributes;
+        return oAuth2UserInfo.getAttributes();
     }
 }

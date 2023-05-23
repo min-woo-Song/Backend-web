@@ -1,5 +1,9 @@
 package com.smw.Backend.config.auth;
 
+import com.smw.Backend.config.auth.userInfo.GoogleUserInfo;
+import com.smw.Backend.config.auth.userInfo.KakaoUserInfo;
+import com.smw.Backend.config.auth.userInfo.NaverUserInfo;
+import com.smw.Backend.config.auth.userInfo.OAuth2UserInfo;
 import com.smw.Backend.domain.member.Member;
 import com.smw.Backend.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +19,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
     private MemberService memberService;
-
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -24,10 +27,20 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
+        OAuth2UserInfo oAuth2UserInfo = null;
         String provider = userRequest.getClientRegistration().getRegistrationId();
-        String providerId = oAuth2User.getAttribute("sub");
-        String email = oAuth2User.getAttribute("email");
-        String nickname = oAuth2User.getName();
+
+        if(provider.equals("google")){
+            oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        } else if(provider.equals("naver")){
+            oAuth2UserInfo = new NaverUserInfo(oAuth2User.getAttributes());
+        } else if(provider.equals("kakao")){
+            oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
+        }
+
+        String providerId = oAuth2UserInfo.getProviderId();
+        String email = oAuth2UserInfo.getEmail();
+        String nickname = oAuth2UserInfo.getName();
 
         Member member = memberService.findByEmail(email);
 
@@ -42,6 +55,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             memberService.save(member);
         }
 
-        return new PrincipalDetails(member, oAuth2User.getAttributes());
+        return new PrincipalDetails(member, oAuth2UserInfo);
     }
 }
