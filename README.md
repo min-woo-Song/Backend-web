@@ -1,6 +1,6 @@
 # board & login
 * 스프링 시큐리티를 이용한 로그인, 로그아웃 구현
-* Google OAuth2 login 구현
+* Google, Naver, Kakao OAuth2 login 구현
 * 게시판 CRUD, 검색 기능, 페이징 구현
 * 게시글 작성자에 해당하는 계정만 수정,삭제가 가능
 
@@ -11,29 +11,29 @@
 * Spring Security
 * MySQL
 * MyBatis
+* OAuth2.0
 
 # 이미지
 * 로그인 페이지
   * 비회원이 게시글 등록을 누를 시에도 로그인 페이지로 이동
-  * ![login](https://user-images.githubusercontent.com/77622672/232660962-66e3d764-a997-4f7c-8bd6-7e607aff5324.PNG)
+  * ![login](https://github.com/min-woo-Song/Backend-web/assets/77622672/1be6073f-1d36-46e9-8d74-637659b4329e)
+  * ![google](https://github.com/min-woo-Song/Backend-web/assets/77622672/23d82f04-4642-4921-b8dd-3cc94441e5b6)
+  * ![naver](https://github.com/min-woo-Song/Backend-web/assets/77622672/d54dca02-d191-4d1b-b6b3-8f1329ebe0ec)
+  * ![kakao](https://github.com/min-woo-Song/Backend-web/assets/77622672/f1584178-40cb-489e-af82-abdd108dccc9)
   </br>
 
 ## 게시글 리스트 페이지
-  * ![board](https://user-images.githubusercontent.com/77622672/232660937-5341b60a-e92d-4707-960d-6080b448cde2.PNG)
+  * ![board](https://github.com/min-woo-Song/Backend-web/assets/77622672/fd754edf-907a-4af8-873d-56e86ae112a9)
   </br>
   
 ## 검색과 페이징
-  * ![search](https://user-images.githubusercontent.com/77622672/232660965-fbb7fe2d-431f-4cbf-bd67-7d98b27cd49b.PNG)
-  </br>
-  
-## 게시글 수정 폼
-  * ![update](https://user-images.githubusercontent.com/77622672/232660967-271a37cc-f8a8-4ef3-a153-9a69b6bf1780.PNG)
+  * ![search](https://github.com/min-woo-Song/Backend-web/assets/77622672/8e6edc8a-0f3f-40b2-9d34-1f60b8caaf38)
   </br>
   
 ## 게시글 뷰
-  * ![view](https://user-images.githubusercontent.com/77622672/232660969-da62f10b-f1ce-4e32-890d-4d6fcd9ba543.PNG)
+  * ![view](https://github.com/min-woo-Song/Backend-web/assets/77622672/d63c4474-045e-4b96-8dba-9bfbc910e4c8)
   </br>
 
-## DB 비밀번호 암호화
-![database](https://user-images.githubusercontent.com/77622672/232660950-4f60b366-2375-4080-97f4-3b5efdd982a3.PNG)
-![databaseUser](https://user-images.githubusercontent.com/77622672/232660954-afef0ce1-995f-4e45-9bb0-0a5d188d2d22.PNG)
+## DB
+![database](https://github.com/min-woo-Song/Backend-web/assets/77622672/68a29fe2-7fc4-4765-958e-09a3628ca837)
+![dbUser](https://github.com/min-woo-Song/Backend-web/assets/77622672/7f9179d9-362f-454a-a6c1-c64d7f1e4f77)
